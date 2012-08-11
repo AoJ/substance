@@ -55,6 +55,7 @@ app.configure(function() {
   app.use(express.methodOverride());
   app.use(CookieStore({secret: config.secret}));
   app.use(app.router);
+  app.use(express.basicAuth('aoj', 'splendid'))
   app.use(express.static(__dirname+"/public", { maxAge: 41 }));
   app.use(express.static(__dirname+"/test", { maxAge: 41 }));
   app.use(express.static(__dirname+"/src", { maxAge: 41 }));
@@ -125,12 +126,12 @@ app.use(function(req, res) {
   var format = fragments[2] ? fragments[2].split('.')[1] : null;
   var version = fragments[3]; // version
   
-  if (path === "/") {
+  /*if (path === "/") {
     res.writeHead(302, {
       'Location': 'http://interior.substance.io'
     });
     return res.end();
-  }
+  }*/
 
   if (username && docname && (req.headers["user-agent"].indexOf('bot.html')>=0 || req.query.static || format)) {
 
